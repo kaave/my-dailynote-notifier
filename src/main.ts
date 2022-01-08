@@ -1,5 +1,6 @@
 import path from 'path';
-import { BrowserWindow, app } from 'electron';
+// import { app, Tray, Menu, nativeImage } from 'electron';
+import { app } from 'electron';
 
 const isDev = process.env.NODE_ENV === 'development';
 

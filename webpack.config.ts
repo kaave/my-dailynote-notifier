@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 import type { Configuration } from 'webpack';
 
 // 開発者モードか否かで処理を分岐する
@@ -113,6 +114,11 @@ const renderer: Configuration = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: 'assets', to: 'dist' },
+      ]
+    }),
     new HtmlWebpackPlugin({
       minify: !isDev,
       inject: 'body',
@@ -123,6 +129,6 @@ const renderer: Configuration = {
 };
 
 // 開発時にはレンダラープロセスのみを処理する（メインプロセスは tsc で処理）
-const config = [renderer, ...(isDev ? [main, preload] : [])];
+const config = [renderer, ...(!isDev ? [main, preload] : [])];
 
 export default config;
