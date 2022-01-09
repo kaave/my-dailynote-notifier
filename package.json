@@ -1,4 +1,6 @@
 {
+  "name": "kaave-dailynote-notifier",
+  "version": "0.0.1",
   "private": true,
   "main": "dist/main.js",
   "scripts": {
@@ -6,17 +8,31 @@
     "dev": "run-p dev:*",
     "dev:tsc": "tsc -w -p tsconfig.main.json",
     "dev:webpack": "cross-env NODE_ENV=development webpack",
-    "dev:electron": "wait-on ./dist/index.html && cross-env NODE_ENV=development electron ."
+    "dev:electron": "wait-on ./dist/index.html && cross-env NODE_ENV=development electron .",
+    "prebuild": "rimraf dist",
+    "build": "run-p build:*",
+    "build:webpack": "cross-env NODE_ENV=production webpack",
+    "build:electron": "wait-on ./dist/index.html && cross-env NODE_ENV=production electron-builder --mac --x64 --dir"
+  },
+  "build": {
+    "appId": "estate.kaave",
+    "productName": "K.Abe DailyNote Notifier",
+    "files": [
+      "dist/**/*"
+    ]
   },
   "devDependencies": {
     "@types/diff": "^5.0.2",
+    "@types/dotenv-webpack": "^7.0.3",
     "@types/fs-extra": "^9.0.13",
     "@types/mini-css-extract-plugin": "^2.4.0",
     "@types/node": "^16",
     "copy-webpack-plugin": "^10.2.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
+    "dotenv-webpack": "^7.0.3",
     "electron": "^16.0.6",
+    "electron-builder": "^22.14.5",
     "electron-reload": "^2.0.0-alpha.1",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.6",

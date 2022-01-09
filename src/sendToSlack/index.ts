@@ -55,7 +55,7 @@ export function watch(): FSWatcher {
               return s;
             }).join("\n").trim();
 
-            // sendToSlack(value);
+            sendToSlack(value);
             console.info(`sendToSlack [${value}]`);
 
             // set cache

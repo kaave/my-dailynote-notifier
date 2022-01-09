@@ -2,7 +2,18 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import webpack from 'webpack';
+import Dotenv from 'dotenv-webpack';
+
 import type { Configuration } from 'webpack';
+
+
+console.log(
+  process.env.NOTE_PATH,
+  process.env.SLACK_TOKEN,
+  process.env.SLACK_CHANNEL,
+  process.env.DEBOUNCE_SEC,
+);
 
 // 開発者モードか否かで処理を分岐する
 const isDev = process.env.NODE_ENV === 'development';
@@ -95,6 +106,15 @@ const main: Configuration = {
   entry: {
     main: './src/main.ts',
   },
+  plugins: [
+    new Dotenv(),
+    // new webpack.DefinePlugin({
+    //   NOTE_PATH: process.env.NOTE_PATH,
+    //   SLACK_TOKEN: process.env.SLACK_TOKEN,
+    //   SLACK_CHANNEL: process.env.SLACK_CHANNEL,
+    //   DEBOUNCE_SEC: process.env.DEBOUNCE_SEC,
+    // }),
+  ],
 };
 
 const preload: Configuration = {
@@ -114,11 +134,6 @@ const renderer: Configuration = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { from: 'src/assets', to: 'assets' },
-      ]
-    }),
     new HtmlWebpackPlugin({
       minify: !isDev,
       inject: 'body',
