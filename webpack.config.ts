@@ -133,6 +133,11 @@ const renderer: Configuration = {
     renderer: './src/renderer.ts',
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/assets', to: 'assets' },
+      ]
+    }),
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       minify: !isDev,

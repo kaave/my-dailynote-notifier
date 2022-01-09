@@ -17,6 +17,9 @@
   "build": {
     "appId": "estate.kaave",
     "productName": "K.Abe DailyNote Notifier",
+    "directories": {
+      "output": "distApp"
+    },
     "files": [
       "dist/**/*"
     ]
