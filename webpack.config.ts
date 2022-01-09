@@ -116,7 +116,7 @@ const renderer: Configuration = {
     new MiniCssExtractPlugin(),
     new CopyPlugin({
       patterns: [
-        { from: 'assets', to: 'dist' },
+        { from: 'src/assets', to: 'assets' },
       ]
     }),
     new HtmlWebpackPlugin({
