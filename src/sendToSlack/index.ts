@@ -41,10 +41,21 @@ export function watch(): FSWatcher {
       }
 
       Diff.diffTrimmedLines(cache[ymd], markdown)
-        .filter(({ added, removed }) => added || removed)
+        // 追加 だけ見れば十分
+        // .filter(({ added, removed }) => added || removed)
+        .filter(({ added }) => added)
         .forEach(({ value }) => {
           trigger[ymd] = global.setTimeout(() => {
-            sendToSlack(value);
+            // 掃除
+            value = value.split("\n").map(s => {
+              if (s.startsWith('```')) {
+                return '```';
+              }
+
+              return s;
+            }).join("\n").trim();
+
+            // sendToSlack(value);
             console.info(`sendToSlack [${value}]`);
 
             // set cache

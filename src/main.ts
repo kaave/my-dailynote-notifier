@@ -36,7 +36,7 @@ if (isDev) {
 
 let watcher: FSWatcher | null = null;
 function startWatch() {
-  if (!watcher) {
+  if (watcher) {
     console.info('Already watched.');
     return;
   }
