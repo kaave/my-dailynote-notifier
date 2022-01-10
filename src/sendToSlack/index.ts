@@ -37,10 +37,11 @@ export function watch(): FSWatcher {
       console.info(`changed [${filepath}]`);
       if (currentTimer) {
         global.clearTimeout(currentTimer);
+        trigger[ymd] = undefined;
         console.info(`clear timer [${currentTimer}]`);
       }
 
-      Diff.diffTrimmedLines(cache[ymd], markdown, { newlineIsToken: true })
+      Diff.diffTrimmedLines(cache[ymd].trim(), markdown.trim())
         // 追加 だけ見れば十分
         // .filter(({ added, removed }) => added || removed)
         .filter(({ added }) => added)
