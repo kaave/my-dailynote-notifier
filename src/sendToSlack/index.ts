@@ -40,7 +40,7 @@ export function watch(): FSWatcher {
         console.info(`clear timer [${currentTimer}]`);
       }
 
-      Diff.diffTrimmedLines(cache[ymd], markdown)
+      Diff.diffTrimmedLines(cache[ymd], markdown, { newlineIsToken: true })
         // 追加 だけ見れば十分
         // .filter(({ added, removed }) => added || removed)
         .filter(({ added }) => added)
