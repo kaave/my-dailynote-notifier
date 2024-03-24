@@ -1,7 +1,6 @@
 import path from 'path';
 import { app, Tray, Menu, nativeImage } from 'electron';
-import * as SendToSlack from './sendToSlack';
-import type { FSWatcher } from 'chokidar';
+import { send } from './sendToSlack';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -34,30 +33,15 @@ if (isDev) {
 //   mainWindow.loadFile('dist/index.html');
 // };
 
-let watcher: FSWatcher | null = null;
-function startWatch() {
-  if (watcher) {
-    console.info('Already watched.');
-    return;
-  }
-
-  watcher = SendToSlack.watch();
-  console.info('Start watch');
-}
-
-function stopWatch() {
-  if (watcher) {
-    SendToSlack.unwatch(watcher);
-    console.info('Stop watch');
-    watcher = null;
-  }
+function sendCurrentNote() {
+  console.log('COMMAND: sendCurrentNote');
+  send(new Date());
 }
 
 // ガベコレで消されないようにGlobalへ配置
 let tray;
 app.whenReady().then(() => {
   // createWindow();
-  console.log('run');
 
   /*
    * tray
@@ -66,8 +50,7 @@ app.whenReady().then(() => {
   // create tray
   tray = new Tray(icon);
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Start', type: 'normal', click: () => startWatch() },
-    { label: 'Stop', type: 'normal', click: () => stopWatch() },
+    { label: 'Send today', type: 'normal', click: () => sendCurrentNote() },
     { type: 'separator'},
     { label: 'Close', role: 'quit' }
   ]);
