@@ -5,6 +5,5 @@ import { token, channel } from './config';
 const client = new WebClient(token);
 
 export async function sendToSlack(message: string) {
-  console.log(message);
-  // client.chat.postMessage({ text: message, channel, mrkdwn: true }).catch((e) => console.error(e));
+  client.chat.postMessage({ text: message, channel, mrkdwn: true }).catch((e) => console.error(e));
 }

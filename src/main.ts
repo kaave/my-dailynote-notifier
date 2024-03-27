@@ -19,6 +19,7 @@ if (isDev) {
   });
 }
 
+
 // const createWindow = () => {
 //   const mainWindow = new BrowserWindow({
 //     webPreferences: {
